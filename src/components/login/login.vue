@@ -30,17 +30,25 @@
   export default {
     data () {
       return {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '123456'
       }
     },
     methods: {
       login: function () {
-        var userInfo = {
-          username: 'username',
-          password: 'password'
-        }
-        this.$store.dispatch('LoginByUsername', userInfo)
+        // var userInfo = {
+        //   username: this.username,
+        //   password: this.password
+        // }
+        // this.axios.post('http://www.xxx.com/api/', userInfo).then(res => {
+        //   if (res.data.status == 200) {
+        //     this.$store.dispatch('login', res.data.token)
+        //     this.$router.push({path: './list'})
+        //   }
+        // })
+        var token = Math.random()
+        this.$store.dispatch('login', token)
+        this.$router.push({path: './list'})
       }
     }
   }

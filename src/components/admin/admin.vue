@@ -1,15 +1,26 @@
 <template>
   <div class="box">
-    <div class="header"></div>
-    <div class="menu"></div>
+    <myhead></myhead>
+    <mymenu></mymenu>
     <div class="wrap">
       <router-view></router-view>
     </div>
   </div>
 </template>
 <script>
+import myhead from '../head/head'
+import mymenu from '../menu/menu'
 export default {
-  name: 'admin'
+  name: 'admin',
+  components: {
+    myhead,
+    mymenu
+  },
+  created () {
+    if (!this.$store.getters.token) {
+      this.$router.push({path: './login'})
+    }
+  }
 }
 </script>
 <style lang='sass'>
@@ -30,4 +41,5 @@ export default {
   bottom: 0
 .wrap
   margin-left: 200px
+  margin-top: 10px
 </style>

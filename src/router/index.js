@@ -16,7 +16,7 @@ export default new Router({
       component: (resolve) => require(['../components/admin/admin.vue'], resolve),
       children: [
         {
-          path: 'adduser',
+          path: 'add',
           component: (resolve) => require(['../components/adduser/adduser.vue'], resolve)
         },
         {

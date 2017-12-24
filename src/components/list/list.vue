@@ -18,7 +18,16 @@
         label="地址">
       </el-table-column>
     </el-table>
-    <el-button type="primary" @click="fn">主要按钮</el-button>
+    <div class="block">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="currentPage"
+        :page-size="10"
+        layout="prev, pager, next, jumper"
+        :total="70">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -42,7 +51,8 @@
           date: '2016-05-03',
           name: '王小虎',
           address: '上海市普陀区金沙江路 1516 弄'
-        }]
+        }],
+        currentPage: 5
       }
     },
     methods: {
@@ -50,6 +60,12 @@
         this.axios.get('/api').then(res => {
           console.log(123)
         })
+      },
+      handleSizeChange (val) {
+        console.log(`每页 ${val} 条`)
+      },
+      handleCurrentChange (val) {
+        console.log(`当前页: ${val}`)
       }
     }
   }

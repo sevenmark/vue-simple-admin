@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import router from '../router'
-import { getToken, setToken, removeToken } from '../utils/auth'
-import { loginByUsername } from '../utils/login'
+import { getToken, setToken, removeToken } from './auth'
 
 Vue.use(Vuex)
 
@@ -11,31 +9,21 @@ const store = new Vuex.Store({
     token: getToken()
   },
   mutations: {
-    SET_TOKEN (state, token) {
+    SET_TOEKN (state, token) {
       state.token = token
+    },
+    REMOVE_TOKEN (state) {
+      state.token = ''
     }
   },
   actions: {
-    LoginByUsername ({commit}, userInfo) {
-      const username = userInfo.username.trim()
-      return new Promise((resolve, reject) => {
-        loginByUsername(username, userInfo.password).then(response => {
-          const data = response.data
-          commit('SET_TOKEN', data.token)
-          setToken(data.token)
-          router.push({path: '/'})
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
-      })
+    login ({commit}, token) {
+      commit('SET_TOEKN', token)
+      setToken(token)
     },
-    LogOut ({commit}) {
-      return new Promise(resolve => {
-        commit('SET_TOKEN', '')
-        removeToken()
-        resolve()
-      })
+    logout ({commit}) {
+      commit('REMOVE_TOKEN')
+      removeToken()
     }
   },
   getters: {
